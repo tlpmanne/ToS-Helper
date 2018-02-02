@@ -56,31 +56,7 @@ def lvl_3(Button):
     gameModeSelection = str(app.getListBox("Level 3"))
     gameModeSelection = gameModeSelection.replace("['", "").replace("']", "")
 
-    global roleList
-    gameModeFile = open("game_modes.csv", "r")
-    fileLines = []
-    count = 0
-    for line in gameModeFile.readlines():
-        fileLines.append(line.split(","))
-        if classic:
-            if (fileLines[count][1] == gameModeSelection and
-               fileLines[count][2] == "Classic"):
-                fileLines[count][17] = fileLines[count][17].replace("\n", "")
-                roleList = fileLines[count]
-                break
-                """break will end the for loop without checking any more lines.
-                this is useful, because if it's found the role list, it doesn't
-                need to search anymore."""
-        else:
-            """This will come into play if classic == False:,
-            a.k.a if it needs to look for Coven game modes."""
-            if (fileLines[count][1] == gameModeSelection and
-               fileLines[count][2] == "Coven"):
-                fileLines[count][17] = fileLines[count][17].replace("\n", "")
-                roleList = fileLines[count]
-                break
-        count = count + 1
-    gameModeFile.close()
+    find_game_mode(gameModeSelection)
 
     """Now it is time to display the Role List sub window.
     this will require changing the widgets to show the
@@ -210,6 +186,34 @@ def lvl_3(Button):
     for player in range(1, 16):
         app.setButton("Role List "+str(player), roleList[player+2])
         app.changeOptionBox("Role "+str(player), allAvailableRoles[player-1])
+
+
+def find_game_mode(name):
+    global roleList
+    gameModeFile = open("game_modes.csv", "r")
+    fileLines = []
+    count = 0
+    for line in gameModeFile.readlines():
+        fileLines.append(line.split(","))
+        if classic:
+            if (fileLines[count][1] == name and
+               fileLines[count][2] == "Classic"):
+                fileLines[count][17] = fileLines[count][17].replace("\n", "")
+                roleList = fileLines[count]
+                break
+                """break will end the for loop without checking any more lines.
+                this is useful, because if it's found the role list, it doesn't
+                need to search anymore."""
+        else:
+            """This will come into play if classic == False:,
+            a.k.a if it needs to look for Coven game modes."""
+            if (fileLines[count][1] == name and
+               fileLines[count][2] == "Coven"):
+                fileLines[count][17] = fileLines[count][17].replace("\n", "")
+                roleList = fileLines[count]
+                break
+        count = count + 1
+    gameModeFile.close()  
 
 
 def colour(alignment):
@@ -471,3 +475,7 @@ app.hideSubWindow("Role Information")
 time to start the GUI. No actual code
 is after this point."""
 app.go()
+
+"""PHPMyAdmin password = UFevxHx2ThbFqsYj
+PHPMyAdmin remote user = remotedb
+PHPMyAdmin remote password = eNMzH43ZwfySWyqq"""
