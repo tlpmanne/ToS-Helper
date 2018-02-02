@@ -475,7 +475,3 @@ app.hideSubWindow("Role Information")
 time to start the GUI. No actual code
 is after this point."""
 app.go()
-
-"""PHPMyAdmin password = UFevxHx2ThbFqsYj
-PHPMyAdmin remote user = remotedb
-PHPMyAdmin remote password = eNMzH43ZwfySWyqq"""
